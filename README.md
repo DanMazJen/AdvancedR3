@@ -2,20 +2,15 @@ TODO: Add more to the title of your project here
 
 # AdvancedR3:
 
-TODO: Give a brief description of what your project is about
-
-This project...
+This project enforces good reproducible research in R practice using lipidomic data as an example.
 
 # Brief description of folder and file contents
 
-TODO: As project evolves, add brief description of what is inside the
-data, docs and R folders.
-
 The following folders contain:
 
--   `data/`:
--   `docs/`:
--   `R/`:
+-   `data/`: lipidomics.csv
+-   `docs/`: learning.qmd
+-   `R/`: functions.R
 
 # Installing project R package dependencies
 
