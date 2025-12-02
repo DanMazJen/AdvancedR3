@@ -14,3 +14,5 @@ Imports:
 Suggests: 
     gitcreds,
     usethis
+URL: https://github.com/DanMazJen/AdvancedR3
+BugReports: https://github.com/DanMazJen/AdvancedR3/issues
