@@ -9,3 +9,6 @@
 .quarto
 data-raw/nmr-omics/
 Course overview
+_targets.yaml
+*_files
+*.html

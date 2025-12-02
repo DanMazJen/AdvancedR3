@@ -7,7 +7,10 @@ format: html
 ## Header 1
 
 ```{r setup}
-#| include: false
+source(here::here("R/functions.R"))
+targets::tar_config_set(store = here::here("_targets")) # so target knows where to find objects
+lipidomics <- targets::tar_read(lipidomics)
+
 ```
 
 ```{r}
