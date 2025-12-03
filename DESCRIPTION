@@ -4,8 +4,12 @@ Type: Project
 Version: 0.0.1
 Encoding: UTF-8
 Imports: 
+    broom,
     dplyr,
     fs,
+    ggplot2,
+    glue,
+    gt,
     here,
     quarto,
     readr,
@@ -19,3 +23,5 @@ Suggests:
     usethis
 URL: https://github.com/DanMazJen/AdvancedR3
 BugReports: https://github.com/DanMazJen/AdvancedR3/issues
+Depends: 
+    tidyverse

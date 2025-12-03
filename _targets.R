@@ -22,9 +22,9 @@ tar_option_set(
   # sets a controller that scales up to a maximum of two workers
   # which run as local R processes. Each worker launches when there is work
   # to do and exits if 60 seconds pass with no tasks to run.
-  #
-  #   controller = crew::crew_controller_local(workers = 2, seconds_idle = 60)
-  #
+
+  controller = crew::crew_controller_local(workers = 2, seconds_idle = 60)
+
   # Alternatively, if you want workers to run on a high-performance computing
   # cluster, select a controller from the {crew.cluster} package.
   # For the cloud, see plugin packages like {crew.aws.batch}.
@@ -59,10 +59,23 @@ list(
   ),
   tar_target(
     name = lipidomics,
-    command = readr::read_csv(file, show_col_types = FALSE)
+    command = readr::read_csv(file, show_col_types = FALSE) |>
+      clean_Cholesterol_dublicates()
   ),
   tar_quarto(
     name = quarto_doc,
     path = "docs/learning.qmd"
+  ),
+  tar_target(
+    name = table_descriptive_stats,
+    command = create_table_descriptive_stats(lipidomics)
+  ),
+  tar_target(
+    name = plot_distributions,
+    command = create_plot_distributions(lipidomics)
+  ),
+  tar_target(
+    name = model_results,
+    command = create_model_results(lipidomics)
   )
 )

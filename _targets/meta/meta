@@ -1,4 +1,13 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 file|stem|c44b806f3841f535|09442fac263aded2|2c530c1562a7fbd1|1735323524|data/lipidomics.csv|t20411.5221277745s|s24277b|24277|file|local|vector|||0||
-lipidomics|stem|1a7ca689988d502e|0adf46d83f39a429|e88672c19d0c6d6c|-1498393010||t20424.574999061s|s4884b|4884|rds|local|vector|||1.812||
-quarto_doc|stem|2fbed5aaa1718fbf|7d7691b957727962|479dd385a8d088bc|1582462002|docs/learning.html*docs/learning.qmd|t20424.618933705s|s21265b|21265|file|local|vector|||5.25|package 'quarto' was built under R version 4.5.2|
+lipidomics|stem|ff3cead37d3755e2|c28a6afcfc7200b4|d9e4750378327f34|-1498393010||t20425.5810141188s|s4135b|4135|rds|local|vector|||1.969||
+table_descriptive_stats|stem|7f2d7c392cd01ca7|34e33bc9eaef7fce|af5f6adf84b2d8bf|1291134815||t20425.5810156316s|s416b|416|rds|local|vector|||0.016||
+plot_distributions|stem|b6973e691e733ea7|01ce942be37808d6|d7006305fd6253f9|222080706||t20425.5810329595s|s270492b|270492|rds|local|vector|||1.359||
+fit_model|function|1a64abfc9598aee8
+clean_Cholesterol_dublicates|function|ce06151f5b2133d2
+preprocess|function|27efdd529f320467
+create_table_descriptive_stats|function|c535f7d02e9a550a
+create_plot_distributions|function|05c01cddf5b15615
+create_model_results|function|c5d849110df4ef9f
+model_results|stem|ae75e64039ac545e|8dc321a94f7f9089|e68ab5638afb1643|-1523611067||t20425.6047420843s|s314b|314|rds|local|vector|||0.625||
+quarto_doc|stem|164198137a83565d|84a9b6a5242fc083|89eaa496b2431aa8|1582462002|docs/learning.html*docs/learning.qmd|t20425.6050158671s|s54070b|54070|file|local|vector|||21.938|package 'quarto' was built under R version 4.5.2|

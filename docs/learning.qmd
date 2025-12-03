@@ -10,14 +10,153 @@ format: html
 source(here::here("R/functions.R"))
 targets::tar_config_set(store = here::here("_targets")) # so target knows where to find objects
 lipidomics <- targets::tar_read(lipidomics)
-
 ```
+
+## Making a table
+
+
+```{r desc table}
+#| eval: false
+
+lipidomics |>
+  dplyr::group_by(metabolite) |>
+  dplyr::summarise(
+    dplyr::across(value, list(mean = mean, sd = sd))
+  ) |>
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), \(x) round(x, digits = 1))
+  ) |>
+  dplyr::mutate(
+    MeanSD = glue::glue("{value_mean} ({value_sd})")
+  ) |>
+  dplyr::select(
+    Metabolite = metabolite,
+    `Mean SD` = MeanSD
+  ) |>
+  gt::gt()
+```
+
+## Results: Basic stats table
+```{r}
+#create_table_descriptive_stats(lipidomics)
+
+# |> gt::gt()
+targets::tar_read(table_descriptive_stats) |>
+  knitr::kable(
+    caption = "The mean and standard deviation of metabolites in the lipidomics dataset."
+  )
+
+targets::tar_read(table_descriptive_stats) |>
+  gt::gt(
+    caption = "The mean and standard deviation of metabolites in the lipidomics dataset."
+  )
+```
+
+## Results: plot of distributions 
+
 
 ```{r}
-# Code chunk
+#| eval: false
+#|
+
+lipidomics |>
+  ggplot2::ggplot(ggplot2::aes(x = value)) +
+  ggplot2::geom_histogram() +
+  ggplot2::facet_wrap(~metabolite, scales = "free") +
+  ggplot2::theme_minimal()
 ```
 
-## This is poorly formatted
 
--   Definitely should have an empty space above this list.
--   this isn't a list, why not?
+```{r figure}
+#| fig-cap: "My beatuiful ggplot"
+#|
+
+# create_plot_distributions(lipidomics)
+
+targets::tar_read(plot_distributions) +
+  ggplot2::labs(x = "Unit I don't know") +
+  ggplot2::theme_classic()
+```
+
+## Preparing the data
+
+
+```{r} 
+#| eval: false
+# Check repeated measures
+lipidomics |>
+  dplyr::count(code, metabolite) |>
+  dplyr::filter(n > 1)
+```
+
+
+```{r}
+#| eval: false
+
+# cleaning - Take mean of repeated measures
+lipidomics |>
+  dplyr::group_by(dplyr::pick(-value)) |>
+  dplyr::summarise(
+    value = mean(value),
+    .groups = "keep"
+  ) |>
+  dplyr::ungroup()
+```
+
+
+```{r}
+#| eval: false
+
+# Sanity check for
+lipidomics |>
+  dplyr::filter(metabolite == "Cholesterol")
+```
+
+
+```{r}
+#| eval: false
+
+# my preproc function
+lipidomics |>
+  dplyr::filter(metabolite == "Cholesterol") |>
+  dplyr::mutate(
+    class = as.factor(class),
+    value = scale(value)
+  )
+```
+
+
+```{r}
+#| eval: false
+
+just_cholesterol <- lipidomics |>
+  dplyr::filter(metabolite == "Cholesterol") |>
+  preprocess()
+
+glm(
+  formula = class ~ value,
+  data = just_cholesterol,
+  family = binomial
+) |>
+  broom::tidy(exponentiate = TRUE) |>
+  dplyr::mutate(
+    metabolite = unique(just_cholesterol$metabolite),
+    model = format(class ~ value),
+    .before = everything()
+  )
+```
+
+
+```{r}
+#| eval: false
+#|
+lipidomics |>
+  dplyr::filter(metabolite == "Cholesterol") |>
+  preprocess() |>
+  fit_model(class ~ value)
+```
+
+
+```{r}
+targets::tar_read(model_results)
+```
